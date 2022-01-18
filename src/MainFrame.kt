@@ -23,18 +23,17 @@ class MainFrame: JFrame() {
     val XMax: JLabel
     val YMin: JLabel
     val YMax: JLabel
-    val set2: JLabel
-    val set3: JLabel
+    val subset2: JLabel
+    val subset3: JLabel
     val bound_left: JLabel
     val bound_right: JLabel
     val xMin: JSpinner
     val xMax: JSpinner
     val yMin: JSpinner
     val yMax: JSpinner
-    val cbPoints: JCheckBox
     val cbGraphic: JCheckBox
     val cbParam: JCheckBox
-    val polynomColorPanel: JPanel
+    val absColorPanel: JPanel
     val paramColorPanel: JPanel
     val xMinM: SpinnerNumberModel
     val xMaxM: SpinnerNumberModel
@@ -54,17 +53,16 @@ class MainFrame: JFrame() {
         yMin = JSpinner(yMinM)
         yMaxM = SpinnerNumberModel(5.0, -4.9, 100.0, 0.1)
         yMax = JSpinner(yMaxM)
-        cbPoints = JCheckBox()
         tMin = JTextField("-1.0")
         tMax = JTextField("1.0")
         cbGraphic = JCheckBox()
         cbParam = JCheckBox()
-        polynomColorPanel = JPanel()
-        polynomColorPanel.background = Color.BLUE
-        polynomColorPanel.setSize(1, 1)
+        absColorPanel = JPanel()
+        absColorPanel.background = Color.BLUE
+        absColorPanel.setSize(1, 1)
         paramColorPanel = JPanel()
         paramColorPanel.background = Color.GREEN
-        polynomColorPanel.setSize(1, 1)
+        absColorPanel.setSize(1, 1)
 
         controlPanel = JPanel().apply { background = Color.WHITE }
 
@@ -89,7 +87,7 @@ class MainFrame: JFrame() {
 
         val f = FunctionPainter(plane)
         f.function = { x: Double -> abs(x + 1) + abs(x - 2) }
-        f.funColor = polynomColorPanel.background
+        f.funColor = absColorPanel.background
 
         val painters = mutableListOf<Painter>(cartesianPainter)
         mainPanel = GraphicsPanel(painters).apply {
@@ -119,26 +117,27 @@ class MainFrame: JFrame() {
             }
         })
 
-        polynomColorPanel.addMouseListener(object : MouseAdapter() {
+        absColorPanel.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent?) {
                 if (e?.button == 1) {
-                    val color = JColorChooser.showDialog(null, "Выберите цвет функции", polynomColorPanel.background)
-                    polynomColorPanel.background = color
+                    val color = JColorChooser.showDialog(null, "Выберите цвет функции", absColorPanel.background)
+                    absColorPanel.background = color
                     f.funColor = color
                     mainPanel.repaint()
                 }
 
             }
         })
-        tMin.addActionListener() {
+         tMin.addActionListener() {
             parametricPainter.t_min = tMin.text.toDouble()
             mainPanel.repaint()
         }
 
-        tMax.addActionListener() {
+         tMax.addActionListener() {
             parametricPainter.t_max = tMax.text.toDouble()
             mainPanel.repaint()
         }
+
         paramColorPanel.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent?) {
                 if (e?.button == 1) {
@@ -185,8 +184,8 @@ class MainFrame: JFrame() {
         XMax = JLabel("XMax:")
         YMin = JLabel("YMin:")
         YMax = JLabel("YMax:")
-        set2 = JLabel("Отобразить график функции, заданной явно")
-        set3 = JLabel("Отобразить график функции, заданной параметрически")
+        subset2 = JLabel("Отобразить график функции, заданной явно")
+        subset3 = JLabel("Отобразить график функции, заданной параметрически")
         bound_left = JLabel("t_min")
         bound_right = JLabel("t_max")
 
@@ -195,7 +194,7 @@ class MainFrame: JFrame() {
             linkSize(XMax, xMax)
             linkSize(YMin, yMin)
             linkSize(YMax, yMax)
-            linkSize(polynomColorPanel, paramColorPanel, cbGraphic, cbParam)
+            linkSize(absColorPanel, paramColorPanel, cbGraphic, cbParam)
             linkSize(tMax, tMin)
 
 
@@ -235,10 +234,10 @@ class MainFrame: JFrame() {
                     .addGroup(
                         createParallelGroup().addComponent(cbGraphic).addComponent(cbParam)
                     )
-                    .addGroup(createParallelGroup().addComponent(set2).addComponent(set3))
+                    .addGroup(createParallelGroup().addComponent(subset2).addComponent(subset3))
                     .addGap(10)
                     .addGroup(
-                        createParallelGroup().addComponent(polynomColorPanel)
+                        createParallelGroup().addComponent(absColorPanel)
                             .addComponent(paramColorPanel)
                     )
                     .addGap(10)
@@ -289,16 +288,16 @@ class MainFrame: JFrame() {
                         .addGroup(
                             createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(cbGraphic)
-                                .addComponent(set2)
+                                .addComponent(subset2)
                                 .addComponent(bound_left)
-                                .addComponent(polynomColorPanel)
+                                .addComponent(absColorPanel)
                                 .addComponent(tMin)
                         )
                         .addGap(2)
                         .addGroup(
                             createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(cbParam)
-                                .addComponent(set3)
+                                .addComponent(subset3)
                                 .addComponent(bound_right)
                                 .addComponent(paramColorPanel)
                                 .addComponent(tMax)

@@ -7,7 +7,7 @@ class ImplicitPlotPainter (private val plane: Plane, var t_min: Double, var t_ma
     var funColor: Color = Color.MAGENTA
     var functionX: (Double) -> Double = Math::sin
     var functionY: (Double) -> Double = Math::sin
-    val steps = 5000
+    val steps = 10000
 
     override fun paint(g: Graphics) {
         with(g as Graphics2D) {
