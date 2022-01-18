@@ -185,14 +185,12 @@ class MainFrame: JFrame() {
         XMax = JLabel("XMax:")
         YMin = JLabel("YMin:")
         YMax = JLabel("YMax:")
-        set2 = JLabel("Отобраить график явно заданной функции")
+        set2 = JLabel("Отобразить график функции, заданной явно")
         set3 = JLabel("Отобразить график функции, заданной параметрически")
-        bound_left = JLabel("t min")
-        bound_right = JLabel("t max")
+        bound_left = JLabel("t_min")
+        bound_right = JLabel("t_max")
 
         controlPanel.layout = GroupLayout(controlPanel).apply {
-//            setAutoCreateGaps(true);
-//            setAutoCreateContainerGaps(true);
             linkSize(XMin, xMin)
             linkSize(XMax, xMax)
             linkSize(YMin, yMin)
