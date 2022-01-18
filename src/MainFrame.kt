@@ -129,12 +129,22 @@ class MainFrame: JFrame() {
             }
         })
          tMin.addActionListener() {
-            parametricPainter.t_min = tMin.text.toDouble()
+             try {
+                 parametricPainter.t_min = tMin.text.toDouble()
+             }
+             catch (e: Exception) {
+                 println("Format for t isn't right!")
+             }
             mainPanel.repaint()
         }
 
          tMax.addActionListener() {
-            parametricPainter.t_max = tMax.text.toDouble()
+             try {
+                 parametricPainter.t_max = tMax.text.toDouble()
+             }
+             catch (e: Exception) {
+                 println("Format for t isn't right!")
+             }
             mainPanel.repaint()
         }
 
