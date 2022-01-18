@@ -1,3 +1,4 @@
+import painting.ExceptionPainter
 import ui.GraphicsPanel
 import ui.painting.CartesianPainter
 import ui.painting.FunctionPainter
@@ -89,6 +90,7 @@ class MainFrame: JFrame() {
         f.function = { x: Double -> abs(x + 1) + abs(x - 2) }
         f.funColor = absColorPanel.background
 
+        val exception = ExceptionPainter(plane)
         val painters = mutableListOf<Painter>(cartesianPainter)
         mainPanel = GraphicsPanel(painters).apply {
             background = Color.WHITE
@@ -133,7 +135,7 @@ class MainFrame: JFrame() {
                  parametricPainter.t_min = tMin.text.toDouble()
              }
              catch (e: Exception) {
-                 println("Format for t isn't right!")
+                 painters.add(exception)
              }
             mainPanel.repaint()
         }
@@ -143,7 +145,7 @@ class MainFrame: JFrame() {
                  parametricPainter.t_max = tMax.text.toDouble()
              }
              catch (e: Exception) {
-                 println("Format for t isn't right!")
+                 painters.add(exception)
              }
             mainPanel.repaint()
         }
